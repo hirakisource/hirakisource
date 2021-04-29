@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- 用途：SVGを使ったサイトのテンプレート -->
+<html>
+	<head>
+		<meta charset="UTF-8"><!-- タイトルよりも前に記述 -->
+		<title>SVGを使ったサイト</title>
+	</head>
+	<body>
+		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
+		<h1>SVGを使ったサイト</h1>
+			<p>回転するボール</p>
+			<svg width="400" height="400" viewBox="0 0 400 400">
+				<circle cx="200" cy="60" r="60" fill="blue" stroke="none"/>
+					<!-- ここからアニメーションの指定 -->
+					<animateTransform attributeName="transform"
+						attributeType="XML"
+						type="rotate"
+						from="360 40 40"
+						to  ="0   40 40"
+						dur="10s"
+						repeatCount="indefinite"/>
+					<!-- ここまでアニメーションの指定 -->
+				</circle>
+			</svg>
+	</body>
+</html>
