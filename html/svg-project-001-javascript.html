@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- 用途：SVGでドット絵風の絵を描く -->
+<html>
+	<head>
+		<meta charset="UTF-8"><!-- タイトルよりも前に記述 -->
+		<title>SVGでドット絵風の絵を描く</title>
+	</head>
+	<body>
+		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
+		<h1>SVGでドット絵風の絵を描く</h1>
+			<p>SVGタグ、JavaScriptによる描画</p>
+			
+			<!-- SVGタグによる描画（緑色の四角） -->
+			<svg id="svg1" width="816" height="624" viewBox="0 0 816 624" xmlns="http://www.w3.org/2000/svg">
+				<!-- SVG描画領域を黒い四角で表示 -->
+				<rect x="0" y="0" width="816" height="624" stroke="black" fill="black" stroke-width="2" />
+				<!-- RPGの1マス -->
+				<!-- 緑のタイルを追加 -->
+				<rect x="0" y="0" width="48" height="48" stroke="none" fill="green" stroke-width="0" />
+			</svg>
+			
+			<!-- JavaScriptによる描画（赤色の四角） -->
+			<!-- JavaScriptでSVGを操作 -->
+			<!-- 赤のタイルを追加 -->
+			<script>
+				svg1=document.getElementById('svg1');
+				rect1=document.createElementNS('http://www.w3.org/2000/svg','rect');
+				rect1.setAttribute('x',48);
+				rect1.setAttribute('y',0);
+				rect1.setAttribute('width',48);
+				rect1.setAttribute('height',48);
+				rect1.setAttribute('stroke','none');
+				rect1.setAttribute('fill','red');
+				rect1.setAttribute('stroke-width',0);
+				svg1.appendChild(rect1);
+			</script>
+	</body>
+</html>
