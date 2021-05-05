@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- 用途：SVGでドット絵風の絵を描く -->
+<html>
+	<head>
+		<meta charset="UTF-8"><!-- タイトルよりも前に記述 -->
+		<title>SVGでドット絵風の絵を描く</title>
+		<script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script><!-- PNG画像化にcanvgを使用 -->
+	</head>
+	<body>
+		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
+		<h1>SVGでドット絵風の絵を描く</h1>
+			<h2>①48*48にランダムでドットを配置</h2>
+			<svg id="svg1" width="480" height="480" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+				<!-- SVG描画領域を黒い四角で表示 -->
+				<rect x="0" y="0" width="480" height="480" stroke="black" fill="black" stroke-width="2" />
+			</svg>
+			
+			<h2>②生成したSVG描画情報をcanvgで画像に変換(右クリックで保存可能)</h2>
+			<canvas id="c1" width="480" height="480"></canvas>
+			
+			<!-- JavaScriptでSVGを操作 -->
+			<script>
+				draw_x=0;
+				draw_y=0;
+				svg1=document.getElementById('svg1');
+				for (let tate = 0; tate <= 47; tate++) {
+					for (let yoko = 0; yoko <= 47; yoko++) {
+						color_r = Math.floor(Math.random() * 256);
+						color_g = Math.floor(Math.random() * 256);
+						color_b = Math.floor(Math.random() * 256);
+						// 四角形オブジェクトの生成とSVG領域への追加
+						let rect1=document.createElementNS('http://www.w3.org/2000/svg','rect');
+						rect1.setAttribute('x',yoko*10);
+						rect1.setAttribute('y',tate*10);
+						rect1.setAttribute('width',480);
+						rect1.setAttribute('height',480);
+						rect1.setAttribute('fill',"rgb(" + color_r + ", " + color_g + ", " + color_b + ")");
+						rect1.setAttribute('stroke','none');
+						rect1.setAttribute('stroke-width',1);
+						svg1.appendChild(rect1);
+					}
+				}
+				
+				// ここからcanvg処理（svg1の情報から画像データを生成、canvasへの描画など）
+				const canvas = document.querySelector('canvas');
+				const ctx = canvas.getContext('2d');
+
+				v = canvg.Canvg.fromString(ctx, svg1.outerHTML);
+
+				// canvg描画
+				v.resize(48, 48, 'xMidYMid meet');
+				v.start();
+				
+			</script>
+			
+			
+	</body>
+</html>
