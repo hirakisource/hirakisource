@@ -5,21 +5,32 @@
 		<meta charset="UTF-8"><!-- タイトルよりも前に記述 -->
 		<title>SVGでドット絵風の絵を描く</title>
 		<script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script><!-- PNG画像化にcanvgを使用 -->
+		<style type="text/css">
+			#code1 { background-color: silver; // #C0C0C0 }
+		</style>
 	</head>
 	<body>
 		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
 		<h1>SVGでドット絵風の絵を描く</h1>
-			<h2>①赤、青、黄、緑のタイルをランダムに配置</h2>
+			<h2>1. 赤、青、黄、緑のタイルをランダムに配置</h2>
 			<svg id="svg1" width="816" height="624" viewBox="0 0 816 624" xmlns="http://www.w3.org/2000/svg">
 				<!-- SVG描画領域を黒い四角で表示 -->
 				<rect x="0" y="0" width="816" height="624" stroke="black" fill="black" stroke-width="2" />
 			</svg>
 			
-			<h2>②生成したSVG描画情報をcanvgで画像に変換(右クリックで保存可能)</h2>
-			<canvas id="c1" width="816" height="624"></canvas>
+			<h2>2. JavaScriptで生成したSVG情報を右クリック等でダウンロード可能にする</h2>
+				<h3>2.1 canvgでPNG画像に変換した場合(右クリックでPNG画像を保存可能)</h3>
+				<canvas id="c1" width="816" height="624"></canvas>
+			
+				<h3>2.2 base64を使ってimgタグで表示した場合(右クリックでsvgファイルを保存可能)</h3>
+				<img id="img1">
+				
+				<h3>2.3 参考までに生成したSVGのコードを出力しておきます。</h3>
+				<textarea id="code1" cols="100" rows="10"></textarea>
 			
 			<!-- JavaScriptでSVGを操作 -->
 			<script>
+				// 1. 赤、青、黄、緑のタイルをランダムに配置
 				colors=['red', 'blue', 'yellow', 'green'];
 				draw_x=0;
 				draw_y=0;
@@ -42,7 +53,9 @@
 					}
 				}
 				
-				// ここからcanvg処理（svg1の情報から画像データを生成、canvasへの描画など）
+				
+				// 2. JavaScriptで生成したSVG情報を右クリック等でダウンロード可能にする
+				// 2.1 canvgでPNG画像に変換した場合(右クリックでPNG画像を保存可能)
 				const canvas = document.querySelector('canvas');
 				const ctx = canvas.getContext('2d');
 
@@ -50,6 +63,15 @@
 
 				// canvg描画
 				v.start();
+				
+				
+				// 2.2 base64を使ってimgタグで表示した場合(右クリックでsvgファイルを保存可能)
+				let svgData = new XMLSerializer().serializeToString(svg1);
+				img1=document.getElementById('img1'); // この行が無くても動くらしい
+				img1.src= "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)))
+				
+				// 2.3 参考までにSVGのコードを出力しておきます。
+				document.getElementById('code1').innerText = svg1.outerHTML;
 				
 			</script>
 			
