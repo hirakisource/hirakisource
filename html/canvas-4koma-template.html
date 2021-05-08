@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- 用途：canvasを利用した4コマ漫画のテンプレート -->
+<html>
+	<head>
+		<meta charset="UTF-8"><!-- タイトルよりも前に記述 -->
+		<title>canvasを利用した4コマ漫画のテンプレート</title>
+		<style type="text/css">
+			body { background-color: #F0FFF0; }
+		</style>
+	</head>
+	<body>
+		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
+		<h1>canvasを利用した4コマ漫画のテンプレート</h1>
+			<h2>1. 4コマ漫画のテンプレート</h2>
+			<p>題字スペースは816×384（px）、1コマの大きさは816×624（px）を想定しています。
+			各コマの画像を用意すればこちらで4コマに結合できるようになっています。
+			あるいはこの空白の画像を利用することもできるかもしれません。</p>
+			<canvas id="canvas_template" ></canvas>
+			<script>
+				// 無名関数を2か所で宣言してしまっているので、今後統合したいと思います。
+                (function() {
+                let canvas = document.getElementById('canvas_template');
+                let context = canvas.getContext('2d');
+                let koma_y=48*9;
+                let tate_kankaku=24;
+                let koma_x=48+24;
+                let daiji_takasa=48*8;
+                canvas.width = 816+(48+24)*2;
+                canvas.height = 624*5;
+                context.lineWidth = 8;
+                context.fillStyle = "rgb(255, 255, 255)"; // 塗りスタイルに白色を指定する
+                context.fillRect(0, 0, canvas.width, canvas.height); // 用紙の白を塗る
+                //context.strokeRect(0, 0, canvas.width, canvas.height); // 全体の枠
+                //context.strokeRect(koma_x, 0, 816, daiji_takasa); // 題字の枠
+                context.strokeRect(koma_x, koma_y+624*0+tate_kankaku*0, 816, 624); // 1コマ目の枠
+                context.strokeRect(koma_x, koma_y+624*1+tate_kankaku*1, 816, 624); // 2コマ目の枠
+                context.strokeRect(koma_x, koma_y+624*2+tate_kankaku*2, 816, 624); // 3コマ目の枠
+                context.strokeRect(koma_x, koma_y+624*3+tate_kankaku*3, 816, 624); // 4コマ目の枠
+
+                var image0 = new Image();
+                image0.src = '0_template.png';
+                image0.addEventListener('load', function() {
+                    context.drawImage(image0, koma_x, 0, 816, daiji_takasa);
+                }, false);
+                
+                var image1 = new Image();
+                image1.src = '1_template.png';
+                image1.addEventListener('load', function() {
+                    context.drawImage(image1, koma_x, koma_y+624*0+tate_kankaku*0, 816, 624);
+                }, false);
+
+                var image2 = new Image();
+                image2.src = '2_template.png';
+                image2.addEventListener('load', function() {
+                    context.drawImage(image2, koma_x, koma_y+624*1+tate_kankaku*1, 816, 624);
+                }, false);
+
+                var image3 = new Image();
+                image3.src = '3_template.png';
+                image3.addEventListener('load', function() {
+                    context.drawImage(image3, koma_x, koma_y+624*2+tate_kankaku*2, 816, 624);
+                }, false);
+
+                var image4 = new Image();
+                image4.src = '4_template.png';
+                image4.addEventListener('load', function() {
+                    context.drawImage(image4, koma_x, koma_y+624*3+tate_kankaku*3, 816, 624);
+                }, false);
+                })();
+			</script>
+			
+			<h2>2. テンプレート使用例</h2>
+			<canvas id="canvas" ></canvas>
+			<script>
+                (function() {
+                var canvas = document.getElementById('canvas');
+                var context = canvas.getContext('2d');
+                var koma_y=48*9;
+                var tate_kankaku=24;
+                var koma_x=48+24;
+                var daiji_takasa=48*8;
+                canvas.width = 816+(48+24)*2;
+                canvas.height = 624*5;
+                context.lineWidth = 8;
+                context.fillStyle = "rgb(255, 255, 255)"; // 塗りスタイルに白色を指定する
+                context.fillRect(0, 0, canvas.width, canvas.height); // 用紙の白を塗る
+                //context.strokeRect(0, 0, canvas.width, canvas.height); // 全体の枠
+                //context.strokeRect(koma_x, 0, 816, daiji_takasa); // 題字の枠
+                context.strokeRect(koma_x, koma_y+624*0+tate_kankaku*0, 816, 624); // 1コマ目の枠
+                context.strokeRect(koma_x, koma_y+624*1+tate_kankaku*1, 816, 624); // 2コマ目の枠
+                context.strokeRect(koma_x, koma_y+624*2+tate_kankaku*2, 816, 624); // 3コマ目の枠
+                context.strokeRect(koma_x, koma_y+624*3+tate_kankaku*3, 816, 624); // 4コマ目の枠
+
+                var image0 = new Image();
+                image0.src = '../img/0.png';
+                image0.addEventListener('load', function() {
+                    context.drawImage(image0, koma_x, 0, 816, daiji_takasa);
+                }, false);
+                
+                var image1 = new Image();
+                image1.src = '../img/1.png';
+                image1.addEventListener('load', function() {
+                    context.drawImage(image1, koma_x, koma_y+624*0+tate_kankaku*0, 816, 624);
+                }, false);
+
+                var image2 = new Image();
+                image2.src = '../img/2.png';
+                image2.addEventListener('load', function() {
+                    context.drawImage(image2, koma_x, koma_y+624*1+tate_kankaku*1, 816, 624);
+                }, false);
+
+                var image3 = new Image();
+                image3.src = '../img/3.png';
+                image3.addEventListener('load', function() {
+                    context.drawImage(image3, koma_x, koma_y+624*2+tate_kankaku*2, 816, 624);
+                }, false);
+
+                var image4 = new Image();
+                image4.src = '../img/4.png';
+                image4.addEventListener('load', function() {
+                    context.drawImage(image4, koma_x, koma_y+624*3+tate_kankaku*3, 816, 624);
+                }, false);
+                })();
+			</script>
+			
+	</body>
+</html>
