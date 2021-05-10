@@ -18,3 +18,10 @@ h3 {
     background: #F0FFF0;
     border-left: solid 20px #00FF7F;
 }
+
+h4 {
+    padding: 0.5em 1em; /* 上下0.5文字分、左右1文字分 */
+    margin: 0.5em 0em;
+    background: #F0FFF0;
+    border-left: solid 20px #00FF7F;
+}
