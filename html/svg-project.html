@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"><!-- タイトルよりも前に記述 -->
-		<title>SVGでドット絵風の絵を描く</title>
+		<title>SVGで絵を描くプロジェクト</title>
 		<script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script><!-- PNG画像化にcanvgを使用 -->
 		<style type="text/css">
 			#code1 { background-color: silver; // #C0C0C0 }
@@ -12,17 +12,17 @@
 	</head>
 	<body>
 		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
-		<h1>SVGでドット絵風の絵を描く</h1>
-			<h2>1. 赤、青、黄、緑のタイルをランダムに配置</h2>
+		<h1>SVGで絵を描くプロジェクト</h1>
+			<h2>1. SVGで絵を描く</h2>
 			<svg id="svg1" width="816" height="624" viewBox="0 0 816 624" xmlns="http://www.w3.org/2000/svg">
 				<!-- SVG描画領域を黒い四角で表示 -->
-				<rect x="0" y="0" width="816" height="624" stroke="black" fill="black" stroke-width="2" />
+				<rect x="0" y="0" width="816" height="624" stroke="black" fill="white" stroke-width="2" />
 			</svg>
 			
 			<h2>2. JavaScriptで生成したSVG情報を右クリック等でダウンロード可能にする</h2>
 				<h3>2.1 canvgでPNG画像に変換した場合(右クリックでPNG画像を保存可能)</h3>
 				<canvas id="c1" width="816" height="624"></canvas>
-			
+				
 				<h3>2.2 base64を使ってimgタグで表示した場合(右クリックでsvgファイルを保存可能)</h3>
 				<img id="img1">
 				
@@ -31,40 +31,75 @@
 			
 			<!-- JavaScriptでSVGを操作 -->
 			<script>
-				// 1. 赤、青、黄、緑のタイルをランダムに配置
-				colors=['red', 'blue', 'yellow', 'green'];
-				draw_x=0;
-				draw_y=0;
+				yoko=0;
+				tate=0;
 				svg1=document.getElementById('svg1');
-				for (let tate = 0; tate <= 12; tate++) {
-					// 値が 0 から 12 まで計 13 回実行される
-					for (let yoko = 0; yoko <= 16; yoko++) {
-						// 値が 0 から 16 まで計 17 回実行される
-						color_name=colors[Math.floor( Math.random() * colors.length )];
+			
+				// 1. SVGで絵を描く
+				// ロボの顔の描画
+				yoko=1;
+				tate=1;
 						// 四角形オブジェクトの生成とSVG領域への追加
-						let rect1=document.createElementNS('http://www.w3.org/2000/svg','rect');
+						rect1=document.createElementNS('http://www.w3.org/2000/svg','rect');
 						rect1.setAttribute('x',yoko*48);
 						rect1.setAttribute('y',tate*48);
-						rect1.setAttribute('width',48);
-						rect1.setAttribute('height',48);
-						rect1.setAttribute('fill',color_name);
-						rect1.setAttribute('stroke','white');
+						rect1.setAttribute('width',48*5);
+						rect1.setAttribute('height',48*4);
+						rect1.setAttribute('fill','white');
+						rect1.setAttribute('stroke','black');
 						rect1.setAttribute('stroke-width',1);
 						svg1.appendChild(rect1);
-					}
-				}
-				
+				// ロボの目の描画
+				yoko=2;
+				tate=2;
+						// 四角形オブジェクトの生成とSVG領域への追加
+						rect1=document.createElementNS('http://www.w3.org/2000/svg','circle');
+						rect1.setAttribute('cx',yoko*48 + 24);
+						rect1.setAttribute('cy',tate*48 + 24);
+						rect1.setAttribute('r',24);
+						rect1.setAttribute('fill','white');
+						rect1.setAttribute('stroke','black');
+						rect1.setAttribute('stroke-width',1);
+						svg1.appendChild(rect1);
+				yoko=4;
+				tate=2;
+						// 四角形オブジェクトの生成とSVG領域への追加
+						rect1=document.createElementNS('http://www.w3.org/2000/svg','circle');
+						rect1.setAttribute('cx',yoko*48 + 24);
+						rect1.setAttribute('cy',tate*48 + 24);
+						rect1.setAttribute('r',24);
+						rect1.setAttribute('fill','white');
+						rect1.setAttribute('stroke','black');
+						rect1.setAttribute('stroke-width',1);
+						svg1.appendChild(rect1);
+				// ロボの口の描画
+				yoko=3;
+				tate=3;
+						// 四角形オブジェクトの生成とSVG領域への追加
+						rect1=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+						rect1.setAttribute('points',"0,0 48,0 24,48");
+						rect1.setAttribute('transform','translate('+ yoko*48 + ' ' + tate*48 + ')');
+						rect1.setAttribute('fill','white');
+						rect1.setAttribute('stroke','black');
+						rect1.setAttribute('stroke-width',1);
+						svg1.appendChild(rect1);
+				// テキストの描画
+				var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+				yoko=10;
+				tate=3;
+						text.setAttribute('x', 48*yoko);
+						text.setAttribute('y', 48*tate);
+						text.setAttribute('fill', 'red');
+						text.setAttribute('style',"font: bold 100px Shippori Mincho; stroke: black; fill: white;");
+						text.textContent = '20';
+						svg1.appendChild(text);
 				
 				// 2. JavaScriptで生成したSVG情報を右クリック等でダウンロード可能にする
 				// 2.1 canvgでPNG画像に変換した場合(右クリックでPNG画像を保存可能)
 				const canvas = document.querySelector('canvas');
 				const ctx = canvas.getContext('2d');
-
 				v = canvg.Canvg.fromString(ctx, svg1.outerHTML);
-
-				// canvg描画
-				v.start();
-				
+				v.start(); // canvg描画
 				
 				// 2.2 base64を使ってimgタグで表示した場合(右クリックでsvgファイルを保存可能)
 				let svgData = new XMLSerializer().serializeToString(svg1);
@@ -75,7 +110,5 @@
 				document.getElementById('code1').innerText = svg1.outerHTML;
 				
 			</script>
-			
-			
 	</body>
 </html>
