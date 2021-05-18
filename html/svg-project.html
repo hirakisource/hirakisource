@@ -14,7 +14,8 @@
 		<!-- ページ内容。brタグでレイアウト調整しないこと。 -->
 		<h1>SVGで絵を描くプロジェクト</h1>
 			<h2>1. SVGで絵を描く</h2>
-			<svg id="svg1" width="816" height="624" viewBox="0 0 816 624" xmlns="http://www.w3.org/2000/svg">
+			<p>SVG座標情報：<span id="point_info"></span></p>
+			<svg id="svg1" onmousemove="point_func()" width="816" height="624" viewBox="0 0 816 624" xmlns="http://www.w3.org/2000/svg">
 				<!-- SVG描画領域を白い四角で表示 -->
 				<rect x="0" y="0" width="816" height="624" stroke="black" fill="white" stroke-width="2" />
 			</svg>
@@ -109,6 +110,16 @@
 				// 2.3 参考までにSVGのコードを出力しておきます。
 				document.getElementById('code1').innerText = svg1.outerHTML;
 				
+			</script>
+			<script>
+				function point_func(){
+					var svg = document.getElementById('svg1');
+					var start_point = svg.getBoundingClientRect();
+					var svg_x=Math.round(event.clientX - start_point.left);
+					var svg_y=Math.round(event.clientY - start_point.top);
+					var point_disp = document.getElementById('point_info');
+					point_disp.innerText="(" + svg_x + "," + svg_y + ")";
+				}
 			</script>
 	</body>
 </html>
